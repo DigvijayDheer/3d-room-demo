@@ -1,0 +1,47 @@
+/* styles/globals.css */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: "Google Sans", Roboto, sans-serif;
+  background: linear-gradient(
+    135deg,
+    #f3f4f6 0%,
+    #f5f5f5 100%
+  ); /* Subtle gradient */
+  color: #202124;
+  height: 100%;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: #1a73e8;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  color: #174ea6; /* Darker blue on hover */
+}
+
+button {
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+  background-color: #174ea6;
+  box-shadow: 0 4px 10px rgba(23, 74, 166, 0.3); /* Add subtle shadow on hover */
+}
