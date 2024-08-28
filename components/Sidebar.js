@@ -1,3 +1,4 @@
+// components/Sidebar.js
 import styles from "../styles/Home.module.css";
 
 const Sidebar = ({ setSelectedFan, setSelectedLamp }) => {

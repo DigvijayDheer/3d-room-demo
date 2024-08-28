@@ -1,3 +1,4 @@
+// pages/index.js
 import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import Room from "../components/Room";
