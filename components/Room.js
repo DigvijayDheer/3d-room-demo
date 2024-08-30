@@ -78,15 +78,8 @@ export default function Room({ selectedFan, selectedLight, onPointerClick }) {
           rotation={[0, -Math.PI / 2, 0]}
         />
 
-        <Model
-          position={[-350, 35, -26]}
-          modelPath="/Fans/white_color.glb"
-          scale={[1, 1, 1]}
-          rotation={[0, -Math.PI / 2, 0]}
-        />
-
-        {/* {renderModel("fans", selectedFan)}
-        {renderModel("lights", selectedLight)} */}
+        {renderModel("fans", selectedFan)}
+        {renderModel("lights", selectedLight)}
 
         {showFanPointer && (
           <mesh
@@ -125,7 +118,7 @@ export default function Room({ selectedFan, selectedLight, onPointerClick }) {
           maxPolarAngle={Math.PI}
           minPolarAngle={0}
           minDistance={10} // Adjusted minimum zoom distance
-          maxDistance={300} // Maximum zoom distance - adjust as needed
+          maxDistance={200} // Maximum zoom distance - adjust as needed
           target={[0, 0, 0]} // Target point in the room
           maxAzimuthAngle={Math.PI}
           minAzimuthAngle={-Math.PI}
