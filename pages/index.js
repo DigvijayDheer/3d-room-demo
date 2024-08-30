@@ -1,12 +1,24 @@
-// pages/index.js
 import Room from "../components/Room";
 import Sidebar from "../components/Sidebar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Home() {
   const [selectedFan, setSelectedFan] = useState(null);
   const [selectedLight, setSelectedLight] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
+
+  useEffect(() => {
+    const storedFan = localStorage.getItem("fan-selection");
+    const storedLight = localStorage.getItem("light-selection");
+
+    if (storedFan) {
+      setSelectedFan(storedFan);
+    }
+
+    if (storedLight) {
+      setSelectedLight(storedLight);
+    }
+  }, []);
 
   const handlePointerClick = (type) => {
     if (type === "fan") {
@@ -28,8 +40,14 @@ export default function Home() {
         onPointerClick={handlePointerClick}
       />
       <Sidebar
-        setSelectedFan={setSelectedFan}
-        setSelectedLight={setSelectedLight}
+        setSelectedFan={(fan) => {
+          setSelectedFan(fan);
+          localStorage.setItem("fan-selection", fan);
+        }}
+        setSelectedLight={(light) => {
+          setSelectedLight(light);
+          localStorage.setItem("light-selection", light);
+        }}
         onCategoryClick={handleCategoryClick}
         selectedCategory={selectedCategory}
       />

@@ -1,4 +1,3 @@
-// components/Room.js
 import { Canvas, extend } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { useRef, useEffect, useState } from "react";
@@ -6,14 +5,13 @@ import { Box3, Vector3, SphereGeometry } from "three";
 import Model from "./Model";
 import { modelConfig } from "../config/modelConfig";
 
-// Extend the geometry
 extend({ SphereGeometry });
 
 export default function Room({ selectedFan, selectedLight, onPointerClick }) {
   const controlsRef = useRef();
   const boundingBox = new Box3(new Vector3(-5, -1, -5), new Vector3(5, 5, 5));
-  const [showFanPointer, setShowFanPointer] = useState(true);
-  const [showLightPointer, setShowLightPointer] = useState(true);
+  const [showFanPointer, setShowFanPointer] = useState(!selectedFan);
+  const [showLightPointer, setShowLightPointer] = useState(!selectedLight);
 
   useEffect(() => {
     const controls = controlsRef.current;
@@ -59,6 +57,20 @@ export default function Room({ selectedFan, selectedLight, onPointerClick }) {
     return null;
   };
 
+  const renderDuplicateModels = (modelIds) => {
+    return modelIds.map((id) => {
+      const selectedModel = modelConfig.lights.find((model) => model.id === id);
+      return (
+        <Model
+          key={selectedModel.id}
+          position={selectedModel.position}
+          modelPath={selectedModel.modelPath}
+          scale={selectedModel.scale}
+        />
+      );
+    });
+  };
+
   const handlePointerClick = (type) => {
     onPointerClick(type);
     if (type === "fan") setShowFanPointer(false);
@@ -78,8 +90,21 @@ export default function Room({ selectedFan, selectedLight, onPointerClick }) {
           rotation={[0, -Math.PI / 2, 0]}
         />
 
-        {renderModel("fans", selectedFan)}
-        {renderModel("lights", selectedLight)}
+        {renderModel("fans", selectedFan) || (
+          <Model
+            key="default-fan"
+            position={[-350, 35, -26]}
+            modelPath="/Fans/white_color.glb"
+            scale={[1, 1, 1]}
+          />
+        )}
+
+        {selectedLight &&
+          selectedLight === "back-lit-downlight" &&
+          renderDuplicateModels(["back-lit-downlight", "back-lit-downlight-2"])}
+        {selectedLight &&
+          selectedLight === "crbo" &&
+          renderDuplicateModels(["crbo", "crbo-2"])}
 
         {showFanPointer && (
           <mesh
