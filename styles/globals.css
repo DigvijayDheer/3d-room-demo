@@ -54,7 +54,7 @@ button:hover {
 
 /* 3D model box */
 .modelBox {
-  width: 70%;
+  width: 75%;
   height: 100%;
   background-color: #ffffff;
   display: flex;
@@ -65,7 +65,7 @@ button:hover {
 
 /* Sidebar */
 .sidebar {
-  width: 30%;
+  width: 25%;
   height: 100%;
   background-color: #f1f3f4;
   box-shadow: -2px 0px 8px rgba(0, 0, 0, 0.1);
