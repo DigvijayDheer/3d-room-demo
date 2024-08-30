@@ -43,22 +43,22 @@ const Sidebar = ({
 
   return (
     <div className="sidebar">
-      <button
+      {/* <button
         className="customButton"
         onClick={() => {
           onCategoryClick("fan");
         }}
       >
         Show Fans
-      </button>
-      <button
+      </button> */}
+      {/* <button
         className="customButton"
         onClick={() => {
           onCategoryClick("light");
         }}
       >
         Show Lights
-      </button>
+      </button> */}
 
       {selectedCategory === "fan" && (
         <>

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Room from "../components/Room";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRedo } from "@fortawesome/free-solid-svg-icons"; // Import refresh icon
 
 const Home = () => {
   const [selectedFan, setSelectedFan] = useState(null);
@@ -45,25 +47,46 @@ const Home = () => {
   };
 
   const handlePointerClick = (type) => {
-    if (type === "fan") handleSelectionChange("fan", "coffee-color-fan-2");
-    if (type === "light")
-      handleSelectionChange("light", "back-lit-downlight-2");
+    if (type === "fan") {
+      handleCategoryChange("fan");
+      setShowFanPointer(false); // Hide the pointer after selecting
+    }
+    if (type === "light") {
+      handleCategoryChange("light");
+      setShowLightPointer(false); // Hide the pointer after selecting
+    }
+  };
+
+  // Function to clear local storage and reload the page
+  const handleClearStorage = () => {
+    localStorage.removeItem("fan-selection");
+    localStorage.removeItem("light-selection");
+    localStorage.removeItem("selected-category");
+    window.location.reload(); // Reload the page to reset to the initial state
   };
 
   return (
     <div className="container">
+      {/* Clear button to reset the state */}
+      {/* <button onClick={handleClearStorage} className="clear-button">
+        Reset Room
+      </button> */}
       <Room
         selectedFan={selectedFan}
         selectedLight={selectedLight}
         onPointerClick={handlePointerClick}
       />
-
       <Sidebar
         setSelectedFan={(value) => handleSelectionChange("fan", value)}
         setSelectedLight={(value) => handleSelectionChange("light", value)}
         onCategoryClick={handleCategoryChange}
         selectedCategory={selectedCategory}
       />
+
+      {/* Button with refresh icon */}
+      <button onClick={handleClearStorage} className="clear-button">
+        <FontAwesomeIcon icon={faRedo} />
+      </button>
     </div>
   );
 };

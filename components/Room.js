@@ -72,7 +72,7 @@ export default function Room({ selectedFan, selectedLight, onPointerClick }) {
   };
 
   const handlePointerClick = (type) => {
-    onPointerClick(type);
+    onPointerClick(type); // Notify parent component about the click
     if (type === "fan") setShowFanPointer(false);
     if (type === "light") setShowLightPointer(false);
   };
@@ -113,7 +113,7 @@ export default function Room({ selectedFan, selectedLight, onPointerClick }) {
           </mesh>
         )}
 
-        {showLightPointer && (
+        {/* {showLightPointer && (
           <mesh
             position={[-115, 95, -25]}
             onClick={() => handlePointerClick("light")}
@@ -121,7 +121,7 @@ export default function Room({ selectedFan, selectedLight, onPointerClick }) {
             <sphereGeometry args={[4, 32, 32]} />
             <meshStandardMaterial color="red" />
           </mesh>
-        )}
+        )} */}
 
         {showLightPointer && (
           <mesh
