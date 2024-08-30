@@ -139,7 +139,7 @@ export default function Room({ selectedFan, selectedLight, onPointerClick }) {
           maxPolarAngle={Math.PI}
           minPolarAngle={0}
           minDistance={10}
-          maxDistance={200}
+          maxDistance={225}
           target={[0, 0, 0]}
           maxAzimuthAngle={Math.PI}
           minAzimuthAngle={-Math.PI}
