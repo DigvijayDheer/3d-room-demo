@@ -1,5 +1,6 @@
-import { modelConfig } from "../config/modelConfig";
+import React from "react";
 import ModelThumbnail from "./ModelThumbnail";
+import { modelConfig } from "../config/modelConfig";
 
 const Sidebar = ({
   setSelectedFan,
@@ -24,9 +25,10 @@ const Sidebar = ({
           <button
             className="customButton"
             onClick={() => {
-              setSelected(
-                model.id.includes("fan") ? `${model.id}-2` : `${model.id}-3`
-              );
+              const selectedId = model.id.includes("fan")
+                ? `${model.id}-2`
+                : `${model.id}-2`;
+              setSelected(selectedId);
             }}
           >
             Select
@@ -45,7 +47,6 @@ const Sidebar = ({
         className="customButton"
         onClick={() => {
           onCategoryClick("fan");
-          localStorage.setItem("selected-category", "fan");
         }}
       >
         Show Fans
@@ -54,7 +55,6 @@ const Sidebar = ({
         className="customButton"
         onClick={() => {
           onCategoryClick("light");
-          localStorage.setItem("selected-category", "light");
         }}
       >
         Show Lights

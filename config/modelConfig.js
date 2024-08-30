@@ -27,7 +27,7 @@ export const modelConfig = {
       thumbnailScale: [0.06, 0.06, 0.06], // Scale for thumbnail view
     },
     {
-      id: "gray-color-fan 2",
+      id: "gray-color-fan-2",
       name: "Gray Color Fan 2",
       modelPath: "/Fans/gray_color_2.glb",
       position: [-350, 35, -26], // Position for room view
@@ -43,7 +43,7 @@ export const modelConfig = {
       thumbnailScale: [0.06, 0.06, 0.06], // Scale for thumbnail view
     },
     {
-      id: "white-color-fan 2",
+      id: "white-color-fan-2",
       name: "White Color Fan 2",
       modelPath: "/Fans/white_color_2.glb",
       position: [-350, 35, -26], // Position for room view

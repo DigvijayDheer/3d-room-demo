@@ -139,9 +139,9 @@ export default function Room({ selectedFan, selectedLight, onPointerClick }) {
           enablePan={true}
           maxPolarAngle={Math.PI}
           minPolarAngle={0}
-          minDistance={10} // Adjusted minimum zoom distance
-          maxDistance={200} // Maximum zoom distance - adjust as needed
-          target={[0, 0, 0]} // Target point in the room
+          minDistance={10}
+          maxDistance={200}
+          target={[0, 0, 0]}
           maxAzimuthAngle={Math.PI}
           minAzimuthAngle={-Math.PI}
         />

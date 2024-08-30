@@ -1,12 +1,13 @@
-import Room from "../components/Room";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
-import { useState, useEffect } from "react";
+import Room from "../components/Room";
 
-export default function Home() {
+const Home = () => {
   const [selectedFan, setSelectedFan] = useState(null);
   const [selectedLight, setSelectedLight] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
+  // Load initial state from local storage
   useEffect(() => {
     const storedFan = localStorage.getItem("fan-selection");
     const storedLight = localStorage.getItem("light-selection");
@@ -25,21 +26,28 @@ export default function Home() {
     }
   }, []);
 
-  const handlePointerClick = (type) => {
+  // Handle state changes and trigger page reload
+  const handleSelectionChange = (type, value) => {
     if (type === "fan") {
-      setSelectedCategory("fan");
-      localStorage.setItem("selected-category", "fan");
+      setSelectedFan(value);
+      localStorage.setItem("fan-selection", value);
     } else if (type === "light") {
-      setSelectedCategory("light");
-      localStorage.setItem("selected-category", "light");
+      setSelectedLight(value);
+      localStorage.setItem("light-selection", value);
     }
-    window.location.reload(); // Reload the page whenever a category is selected
+    window.location.reload(); // Reload page to re-render models properly
   };
 
-  const handleCategoryClick = (category) => {
+  const handleCategoryChange = (category) => {
     setSelectedCategory(category);
     localStorage.setItem("selected-category", category);
-    window.location.reload(); // Reload the page whenever a category is selected
+    window.location.reload(); // Reload page to reflect menu state change
+  };
+
+  const handlePointerClick = (type) => {
+    if (type === "fan") handleSelectionChange("fan", "coffee-color-fan-2");
+    if (type === "light")
+      handleSelectionChange("light", "back-lit-downlight-2");
   };
 
   return (
@@ -49,20 +57,15 @@ export default function Home() {
         selectedLight={selectedLight}
         onPointerClick={handlePointerClick}
       />
+
       <Sidebar
-        setSelectedFan={(fan) => {
-          setSelectedFan(fan);
-          localStorage.setItem("fan-selection", fan);
-          window.location.reload(); // Reload the page whenever a fan is selected
-        }}
-        setSelectedLight={(light) => {
-          setSelectedLight(light);
-          localStorage.setItem("light-selection", light);
-          window.location.reload(); // Reload the page whenever a light is selected
-        }}
-        onCategoryClick={handleCategoryClick}
+        setSelectedFan={(value) => handleSelectionChange("fan", value)}
+        setSelectedLight={(value) => handleSelectionChange("light", value)}
+        onCategoryClick={handleCategoryChange}
         selectedCategory={selectedCategory}
       />
     </div>
   );
-}
+};
+
+export default Home;
