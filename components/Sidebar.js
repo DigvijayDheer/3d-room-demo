@@ -9,7 +9,7 @@ const Sidebar = ({
 }) => {
   const renderModelOptions = (type, setSelected) => {
     const uniqueModels = modelConfig[type].filter(
-      (model) => model.id.endsWith("2") === false
+      (model) => !model.id.includes("2") && !model.id.includes("3")
     );
 
     return uniqueModels.map((model) => (
@@ -17,19 +17,15 @@ const Sidebar = ({
         <span>{model.name}</span>
         <ModelThumbnail
           modelPath={model.modelPath}
-          position={model.thumbnailPosition} // Use thumbnail position
-          scale={model.thumbnailScale} // Use thumbnail scale
+          position={model.thumbnailPosition}
+          scale={model.thumbnailScale}
         />
         <div>
           <button
             className="customButton"
             onClick={() => {
-              setSelected(model.id);
-              localStorage.setItem(
-                `${type}-selection`,
-                model.id === "back-lit-downlight"
-                  ? "back-lit-downlight"
-                  : model.id
+              setSelected(
+                model.id.includes("fan") ? `${model.id}-2` : `${model.id}-3`
               );
             }}
           >
@@ -45,10 +41,22 @@ const Sidebar = ({
 
   return (
     <div className="sidebar">
-      <button className="customButton" onClick={() => onCategoryClick("fan")}>
+      <button
+        className="customButton"
+        onClick={() => {
+          onCategoryClick("fan");
+          localStorage.setItem("selected-category", "fan");
+        }}
+      >
         Show Fans
       </button>
-      <button className="customButton" onClick={() => onCategoryClick("light")}>
+      <button
+        className="customButton"
+        onClick={() => {
+          onCategoryClick("light");
+          localStorage.setItem("selected-category", "light");
+        }}
+      >
         Show Lights
       </button>
 

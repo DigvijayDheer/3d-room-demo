@@ -90,21 +90,18 @@ export default function Room({ selectedFan, selectedLight, onPointerClick }) {
           rotation={[0, -Math.PI / 2, 0]}
         />
 
-        {renderModel("fans", selectedFan) || (
-          <Model
-            key="default-fan"
-            position={[-350, 35, -26]}
-            modelPath="/Fans/white_color.glb"
-            scale={[1, 1, 1]}
-          />
-        )}
+        {renderModel("fans", selectedFan)}
 
         {selectedLight &&
-          selectedLight === "back-lit-downlight" &&
-          renderDuplicateModels(["back-lit-downlight", "back-lit-downlight-2"])}
+          selectedLight.includes("back-lit-downlight") &&
+          renderDuplicateModels([
+            "back-lit-downlight-3",
+            "back-lit-downlight-2",
+          ])}
+
         {selectedLight &&
-          selectedLight === "crbo" &&
-          renderDuplicateModels(["crbo", "crbo-2"])}
+          selectedLight.includes("crbo") &&
+          renderDuplicateModels(["crbo-3", "crbo-2"])}
 
         {showFanPointer && (
           <mesh
