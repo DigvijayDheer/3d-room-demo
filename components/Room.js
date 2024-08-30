@@ -1,14 +1,19 @@
 // components/Room.js
-import { Canvas } from "@react-three/fiber";
+import { Canvas, extend } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
+import { useRef, useEffect, useState } from "react";
+import { Box3, Vector3, SphereGeometry } from "three";
 import Model from "./Model";
-import { useRef, useEffect } from "react";
-import { Box3, Vector3 } from "three";
+import { modelConfig } from "../config/modelConfig";
 
-export default function Room({ selectedFan, selectedLamp }) {
+// Extend the geometry
+extend({ SphereGeometry });
+
+export default function Room({ selectedFan, selectedLight, onPointerClick }) {
   const controlsRef = useRef();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const boundingBox = new Box3(new Vector3(-5, -1, -5), new Vector3(5, 5, 5));
+  const [showFanPointer, setShowFanPointer] = useState(true);
+  const [showLightPointer, setShowLightPointer] = useState(true);
 
   useEffect(() => {
     const controls = controlsRef.current;
@@ -36,71 +41,82 @@ export default function Room({ selectedFan, selectedLamp }) {
     };
   }, [boundingBox]);
 
-  const renderFanModel = () => {
-    switch (selectedFan) {
-      case "ceiling_fan":
-        return (
-          <Model
-            key="ceiling_fan"
-            position={[0, -4, 0]}
-            modelPath="/models/ceiling_fan/scene.gltf"
-            scale={[4, 3, 4]}
-          />
-        );
-      case "ceiling_fan_lp":
-        return (
-          <Model
-            key="ceiling_fan_lp"
-            position={[0, 4.8, 0]}
-            modelPath="/models/ceiling_fan_lp/scene.gltf"
-            scale={[2, 2, 2]}
-          />
-        );
-      default:
-        return null;
+  const renderModel = (type, selectedModel) => {
+    const models = modelConfig[type];
+    const selected = models.find((model) => model.id === selectedModel);
+
+    if (selected) {
+      return (
+        <Model
+          key={selected.id}
+          position={selected.position}
+          modelPath={selected.modelPath}
+          scale={selected.scale}
+        />
+      );
     }
+
+    return null;
   };
 
-  const renderLampModel = () => {
-    switch (selectedLamp) {
-      case "ceiling_lamp":
-        return (
-          <Model
-            key="ceiling_lamp"
-            position={[4, 4.7, 0]}
-            modelPath="/models/ceiling_lamp/scene.gltf"
-            scale={[0.8, 0.8, 0.8]}
-          />
-        );
-      case "ceiling_lamp_lp":
-        return (
-          <Model
-            key="ceiling_lamp_lp"
-            position={[4, 5.2, 0]}
-            modelPath="/models/ceiling_lamp_lp/scene.gltf"
-            scale={[1, 0.5, 1]}
-          />
-        );
-      default:
-        return null;
-    }
+  const handlePointerClick = (type) => {
+    onPointerClick(type);
+    if (type === "fan") setShowFanPointer(false);
+    if (type === "light") setShowLightPointer(false);
   };
 
   return (
-    <div className="canvas-container">
-      <Canvas camera={{ position: [0, 4, 8], fov: 50 }}>
+    <div className="modelBox">
+      <Canvas camera={{ position: [450, 105, 10], fov: 50 }}>
         <ambientLight intensity={0.7} />
         <directionalLight position={[10, 10, 5]} intensity={1.5} />
 
         <Model
-          position={[0, 0, 0]}
-          modelPath="/models/white_modern_living_room/scene.gltf"
-          scale={[2, 2, 2]}
+          position={[-100, -80, -60]}
+          modelPath="/Living_Room/Living_Room.gltf"
+          scale={[300, 300, 300]}
           rotation={[0, -Math.PI / 2, 0]}
         />
 
-        {renderFanModel()}
-        {renderLampModel()}
+        <Model
+          position={[-350, 35, -26]}
+          modelPath="/Fans/white_color.glb"
+          scale={[1, 1, 1]}
+          rotation={[0, -Math.PI / 2, 0]}
+        />
+
+        {/* {renderModel("fans", selectedFan)}
+        {renderModel("lights", selectedLight)} */}
+
+        {showFanPointer && (
+          <mesh
+            position={[-350, 95, -25]}
+            onClick={() => handlePointerClick("fan")}
+          >
+            <sphereGeometry args={[5, 32, 32]} />
+            <meshStandardMaterial color="red" bumpScale={1} />
+          </mesh>
+        )}
+
+        {showLightPointer && (
+          <mesh
+            position={[-115, 95, -25]}
+            onClick={() => handlePointerClick("light")}
+          >
+            <sphereGeometry args={[4, 32, 32]} />
+            <meshStandardMaterial color="red" />
+          </mesh>
+        )}
+
+        {showLightPointer && (
+          <mesh
+            position={[-56, 95, -25]}
+            onClick={() => handlePointerClick("light")}
+          >
+            <sphereGeometry args={[4, 32, 32]} />
+            <meshStandardMaterial color="red" />
+          </mesh>
+        )}
 
         <OrbitControls
           ref={controlsRef}
@@ -108,29 +124,13 @@ export default function Room({ selectedFan, selectedLamp }) {
           enablePan={true}
           maxPolarAngle={Math.PI}
           minPolarAngle={0}
-          minDistance={1.1}
-          maxDistance={10}
-          target={[0, 1.5, 0]}
+          minDistance={10} // Adjusted minimum zoom distance
+          maxDistance={300} // Maximum zoom distance - adjust as needed
+          target={[0, 0, 0]} // Target point in the room
           maxAzimuthAngle={Math.PI}
           minAzimuthAngle={-Math.PI}
         />
       </Canvas>
-      <style jsx>{`
-        .canvas-container {
-          height: 100%;
-          width: 100%;
-        }
-
-        @media (max-width: 768px) {
-          .canvas-container {
-            height: 100vw;
-            width: 100vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
-        }
-      `}</style>
     </div>
   );
 }

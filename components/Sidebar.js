@@ -1,54 +1,59 @@
 // components/Sidebar.js
-import styles from "../styles/Home.module.css";
+import { modelConfig } from "../config/modelConfig";
+import ModelThumbnail from "./ModelThumbnail";
 
-const Sidebar = ({ setSelectedFan, setSelectedLamp }) => {
-  const fans = [
-    { id: "ceiling_fan", name: "Ceiling Fan" },
-    { id: "ceiling_fan_lp", name: "Ceiling Fan LP" },
-  ];
-
-  const lamps = [
-    { id: "ceiling_lamp", name: "Ceiling Lamp" },
-    { id: "ceiling_lamp_lp", name: "Ceiling Lamp LP" },
-  ];
+const Sidebar = ({
+  setSelectedFan,
+  setSelectedLight,
+  onCategoryClick,
+  selectedCategory,
+}) => {
+  const renderModelOptions = (type, setSelected) => {
+    return modelConfig[type].map((model) => (
+      <div key={model.id} className="modelOption">
+        <span>{model.name}</span>
+        <ModelThumbnail
+          modelPath={model.modelPath}
+          position={model.thumbnailPosition} // Use thumbnail position
+          scale={model.thumbnailScale} // Use thumbnail scale
+        />
+        <div>
+          <button
+            className="customButton"
+            onClick={() => setSelected(model.id)}
+          >
+            Select
+          </button>
+          <a href={`/model/${model.id}`}>
+            <button className="customButton">View Details</button>
+          </a>
+        </div>
+      </div>
+    ));
+  };
 
   return (
-    <div className={styles.sidebar}>
-      <h3>Select Fan</h3>
-      {fans.map((fan) => (
-        <div key={fan.id} className={styles.modelOption}>
-          <span>{fan.name}</span>
-          <div>
-            <button
-              className={styles.customButton}
-              onClick={() => setSelectedFan(fan.id)}
-            >
-              Select
-            </button>
-            <a href={`/model/${fan.id}`}>
-              <button className={styles.customButton}>View Details</button>
-            </a>
-          </div>
-        </div>
-      ))}
+    <div className="sidebar">
+      <button className="customButton" onClick={() => onCategoryClick("fan")}>
+        Show Fans
+      </button>
+      <button className="customButton" onClick={() => onCategoryClick("light")}>
+        Show Lights
+      </button>
 
-      <h3>Select Lamp</h3>
-      {lamps.map((lamp) => (
-        <div key={lamp.id} className={styles.modelOption}>
-          <span>{lamp.name}</span>
-          <div>
-            <button
-              className={styles.customButton}
-              onClick={() => setSelectedLamp(lamp.id)}
-            >
-              Select
-            </button>
-            <a href={`/model/${lamp.id}`}>
-              <button className={styles.customButton}>View Details</button>
-            </a>
-          </div>
-        </div>
-      ))}
+      {selectedCategory === "fan" && (
+        <>
+          <h3>Select Fan</h3>
+          {renderModelOptions("fans", setSelectedFan)}
+        </>
+      )}
+
+      {selectedCategory === "light" && (
+        <>
+          <h3>Select Light</h3>
+          {renderModelOptions("lights", setSelectedLight)}
+        </>
+      )}
     </div>
   );
 };
