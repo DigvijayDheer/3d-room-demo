@@ -10,8 +10,17 @@ extend({ SphereGeometry });
 export default function Room({ selectedFan, selectedLight, onPointerClick }) {
   const controlsRef = useRef();
   const boundingBox = new Box3(new Vector3(-5, -1, -5), new Vector3(5, 5, 5));
-  const [showFanPointer, setShowFanPointer] = useState(!selectedFan);
-  const [showLightPointer, setShowLightPointer] = useState(!selectedLight);
+  const [showFanPointer, setShowFanPointer] = useState(true);
+  const [showLightPointer, setShowLightPointer] = useState(true);
+
+  useEffect(() => {
+    // Check local storage and update state based on stored values
+    const storedFan = localStorage.getItem("fan-selection");
+    const storedLight = localStorage.getItem("light-selection");
+
+    setShowFanPointer(!storedFan); // Show pointer if no fan is selected
+    setShowLightPointer(!storedLight); // Show pointer if no light is selected
+  }, []);
 
   useEffect(() => {
     const controls = controlsRef.current;
@@ -73,8 +82,8 @@ export default function Room({ selectedFan, selectedLight, onPointerClick }) {
 
   const handlePointerClick = (type) => {
     onPointerClick(type); // Notify parent component about the click
-    if (type === "fan") setShowFanPointer(false);
-    if (type === "light") setShowLightPointer(false);
+    if (type === "fan") setShowFanPointer(false); // Hide fan pointer after click
+    if (type === "light") setShowLightPointer(false); // Hide light pointer after click
   };
 
   return (
@@ -112,16 +121,6 @@ export default function Room({ selectedFan, selectedLight, onPointerClick }) {
             <meshStandardMaterial color="red" bumpScale={1} />
           </mesh>
         )}
-
-        {/* {showLightPointer && (
-          <mesh
-            position={[-115, 95, -25]}
-            onClick={() => handlePointerClick("light")}
-          >
-            <sphereGeometry args={[4, 32, 32]} />
-            <meshStandardMaterial color="red" />
-          </mesh>
-        )} */}
 
         {showLightPointer && (
           <mesh
