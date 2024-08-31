@@ -5,8 +5,8 @@ export const modelConfig = {
       id: "coffee-color-fan",
       name: "Coffee Color Fan",
       modelPath: "/Fans/coffe_color.glb",
-      detailPosition: [0, 0, 0], // Position for detail page view
-      detailScale: [1, 1, 1], // Scale for detail page view
+      detailPosition: [0, -2, 0], // Position for detail page view
+      detailScale: [0.06, 0.06, 0.06], // Scale for detail page view
       thumbnailPosition: [0, -3, 0], // Position for thumbnail view
       thumbnailScale: [0.06, 0.06, 0.06], // Scale for thumbnail view
     },
@@ -21,8 +21,8 @@ export const modelConfig = {
       id: "gray-color-fan",
       name: "Gray Color Fan",
       modelPath: "/Fans/gray_color.glb",
-      detailPosition: [0, 0, 0], // Position for detail page view
-      detailScale: [1, 1, 1], // Scale for detail page view
+      detailPosition: [0, -2, 0], // Position for detail page view
+      detailScale: [0.06, 0.06, 0.06], // Scale for detail page view
       thumbnailPosition: [0, -3, 0], // Position for thumbnail view
       thumbnailScale: [0.06, 0.06, 0.06], // Scale for thumbnail view
     },
@@ -37,8 +37,8 @@ export const modelConfig = {
       id: "white-color-fan",
       name: "White Color Fan",
       modelPath: "/Fans/white_color.glb",
-      detailPosition: [0, 0, 0], // Position for detail page view
-      detailScale: [1, 1, 1], // Scale for detail page view
+      detailPosition: [0, -2, 0], // Position for detail page view
+      detailScale: [0.06, 0.06, 0.06], // Scale for detail page view
       thumbnailPosition: [0, -3, 0], // Position for thumbnail view
       thumbnailScale: [0.06, 0.06, 0.06], // Scale for thumbnail view
     },
@@ -56,7 +56,7 @@ export const modelConfig = {
       name: "Back Lit Downlight",
       modelPath: "/Lights/Back_Lit_Downlight/Back_Lit_Downlight.gltf",
       detailPosition: [0, 0, 0], // Position for detail page view
-      detailScale: [1, 1, 1], // Scale for detail page view
+      detailScale: [40, 40, 40], // Scale for detail page view
       thumbnailPosition: [0, 0, 0], // Position for thumbnail view
       thumbnailScale: [40, 40, 40], // Scale for thumbnail view
     },
@@ -79,7 +79,7 @@ export const modelConfig = {
       name: "CRBO",
       modelPath: "/Lights/CRBO/CRBO.gltf",
       detailPosition: [0, 0, 0], // Position for detail page view
-      detailScale: [1, 1, 1], // Scale for detail page view
+      detailScale: [40, 40, 40], // Scale for detail page view
       thumbnailPosition: [0, 0, 0], // Position for thumbnail view
       thumbnailScale: [35, 35, 35], // Scale for thumbnail view
     },
