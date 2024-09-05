@@ -8,7 +8,7 @@ html {
   background-color: #f4f4f4;
   color: #1c1c1e;
   height: 100%;
-  /* overflow: hidden; */
+  overflow-x: hidden;
 }
 
 * {
@@ -159,84 +159,147 @@ button:hover {
 
 /* Model Detail Page Layout */
 .model-detail-page {
-  display: flex;
-  flex-direction: row !important; /* Side by side layout on desktop */
-  height: 100vh;
   width: 100vw;
-  padding: 20px;
-  gap: 20px; /* Adds spacing between the two sections */
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box; /* Ensure padding and borders are included in the element's width and height */
-}
-/* Model Viewer Section */
-.model-viewer-section {
-  flex: 1; /* Flex-grow to take available space */
-  min-width: 0; /* Prevent overflow issues */
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-sizing: border-box; /* Include padding and border in element's width and height */
-}
-
-/* Model Viewer Box */
-.model-viewer {
-  width: 100%;
-  height: 100%;
-  background-color: #ffffff;
-  border-radius: 10px;
-}
-
-/* Model Details Section */
-.model-details-section {
-  flex: 1; /* Flex-grow to take available space */
-  min-width: 0; /* Prevent overflow issues */
-  background-color: #ffffff;
   padding: 20px;
+  box-sizing: border-box;
+}
+
+.model-detail-container {
+  height: 90vh;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.model-viewer-section {
+  background-color: #f4f4f4;
+  width: 100%;
+  max-width: 48%;
+  height: auto;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.wishlist-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.model-details-section {
+  background-color: white;
+  width: 100%;
+  max-width: 48%;
+  height: 100%;
+  padding: 10px 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  box-sizing: border-box; /* Include padding and border in element's width and height */
 }
 
-/* Details Heading */
-.model-details-section h4 {
-  font-size: 28px;
-  font-weight: 700;
-  color: #1c1c1e;
-  margin-bottom: 20px;
+.price-section {
+  margin-top: 0px;
 }
 
-/* Details Paragraph */
-.model-details-section p {
-  font-size: 14px;
-  color: #1c1c1e;
-  margin-bottom: 10px;
+.new_price {
+  color: #000;
+  font-size: 24px;
+  font-weight: 800;
 }
 
-/* Back Button */
-.back-button {
-  background-color: #0071e3;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  font-size: 12px;
+.discount {
+  color: #ff0000;
   font-weight: 600;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  margin-top: 20px;
 }
 
-.back-button:hover {
-  background-color: #005bb5;
+.old_price {
+  color: #888;
+  text-decoration: line-through;
+}
+
+.rating-section {
+  display: flex;
+  align-items: center;
+}
+
+.rating-section span {
+  margin-left: 5px;
+}
+
+.product-details-list {
+  list-style: none;
+  font-size: 14px;
+  margin-left: -40px;
+  max-height: 100px;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.product-details-list.show-more {
+  max-height: none;
+}
+
+.show-more-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 0px;
+  margin-bottom: 15px;
+}
+
+.show-more-link {
+  text-decoration: none;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.add-to-cart-button {
+  background-color: #ff9900;
+  border: none;
+  padding: 15px;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%; /* Set to 90% width */
+  margin: 0 auto;
+  margin-bottom: 16px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.add-to-cart-button:hover {
+  background-color: #e68a00;
+}
+
+@media screen and (max-width: 768px) {
+  .model-detail-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .model-viewer-section,
+  .model-details-section {
+    max-width: 100%;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .model-viewer-section {
+    padding: 10px; /* Adjust padding for mobile */
+    height: auto; /* Set height to auto */
+  }
 }
 
 /* Responsive adjustments */
@@ -261,28 +324,5 @@ button:hover {
     width: 40px;
     height: 40px;
     font-size: 16px;
-  }
-
-  .model-detail-page {
-    flex-direction: column; /* Stack sections on mobile devices */
-  }
-
-  .model-viewer-section,
-  .model-details-section {
-    width: 100%; /* Full width on mobile */
-    height: auto; /* Auto height on mobile */
-    margin-bottom: 20px; /* Adds spacing between sections */
-  }
-
-  .model-viewer-section {
-    height: 60vh;
-  }
-
-  .model-details-section {
-    padding: 20px;
-  }
-
-  .model-details-section h4 {
-    font-size: 24px;
   }
 }
