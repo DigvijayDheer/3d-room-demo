@@ -287,7 +287,7 @@ button:hover {
   .model-detail-container {
     flex-direction: column;
     height: auto;
-    padding-top: 20vh;
+    padding-top: 40vh;
   }
 
   .model-viewer-section {
