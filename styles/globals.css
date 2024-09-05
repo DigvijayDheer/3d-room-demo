@@ -289,7 +289,14 @@ button:hover {
     height: auto;
   }
 
-  .model-viewer-section,
+  .model-viewer-section {
+    margin-top: 60vh;
+    max-width: 100%;
+    width: 100%;
+    height: 50vh !important;
+    margin-bottom: 20px;
+  }
+
   .model-details-section {
     max-width: 100%;
     width: 100%;
@@ -297,8 +304,9 @@ button:hover {
   }
 
   .model-viewer-section {
-    padding: 10px; /* Adjust padding for mobile */
-    height: auto; /* Set height to auto */
+    padding: 10px; /* Increase padding for mobile to prevent cutoff */
+    height: auto; /* Set height to auto for mobile responsiveness */
+    box-sizing: border-box; /* Ensure padding and border are included in the height calculation */
   }
 }
 
